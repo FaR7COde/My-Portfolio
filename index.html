@@ -1,0 +1,599 @@
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Website Portfolio | Muhamad Fadil</title>
+    <meta
+      name="description"
+      content="Muhamad Fadil — Creative Developer, AI Supervisor & UI Designer. Membangun produk digital yang estetis, fungsional, dan berkesan."
+    />
+    <meta
+      name="keywords"
+      content="Muhamad Fadil, Frontend Developer, UI Designer, AI Supervisor, Portfolio, Web Developer Indonesia"
+    />
+    <meta
+      property="og:title"
+      content="Portfolio | Muhamad Fadil — Creative Developer"
+    />
+    <meta
+      property="og:description"
+      content="Turning ideas into beautiful, functional digital experiences."
+    />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://far7code.github.io/" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Portfolio | Muhamad Fadil" />
+    <meta name="theme-color" content="#007aff" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;800&family=Syne:wght@400;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/typed.js@2.1.0/dist/typed.umd.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <!-- CUSTOM CURSOR -->
+    <div class="cursor-dot"></div>
+    <div class="cursor-ring"></div>
+
+    <!-- PRELOADER -->
+    <div class="preloader" id="preloader">
+      <div class="preloader-inner">
+        <div class="load-text-wrap">
+          <span id="shuffle-text">INITIATING</span>
+        </div>
+        <div class="load-bar-container">
+          <div class="load-bar" id="load-bar"></div>
+        </div>
+        <div class="load-counter"><span id="load-pc">00</span>%</div>
+      </div>
+    </div>
+
+    <!-- BACKGROUND -->
+    <div class="bg-canvas">
+      <canvas id="particle-network" class="particle-network"></canvas>
+      <div class="floating-shapes">
+        <div class="shape shape-1"></div>
+        <div class="shape shape-2"></div>
+        <div class="shape shape-3"></div>
+        <div class="shape shape-4"></div>
+      </div>
+      <div class="glow-orb orb-1"></div>
+      <div class="glow-orb orb-2"></div>
+      <div class="noise-layer"></div>
+    </div>
+
+    <!-- NAV -->
+    <nav class="nav-bar">
+      <div class="nav-container container">
+        <div class="nav-brand">PORT<span>FOLIO</span></div>
+        <div class="nav-links">
+          <a href="#home" class="nav-item">Home</a>
+          <a href="#about" class="nav-item">About</a>
+          <a href="#skills" class="nav-item">Skills</a>
+          <a href="#work" class="nav-item">Projects</a>
+          <button
+            class="theme-toggle"
+            id="theme-toggle"
+            aria-label="Toggle dark mode"
+          >
+            <span class="theme-icon sun">☀️</span>
+            <span class="theme-icon moon">🌙</span>
+            <div class="toggle-track"></div>
+          </button>
+          <a href="#contact" class="nav-item nav-btn">Hire Me</a>
+        </div>
+      </div>
+    </nav>
+
+    <main>
+      <!-- HERO -->
+      <section id="home" class="hero">
+        <div class="container">
+          <div class="hero-content">
+            <div class="hero-badge reveal">
+              <span>Available for Freelance</span>
+            </div>
+            <h1 class="hero-main-title">
+              <div class="h-line"><span>Creative</span></div>
+              <div class="h-line">
+                <span class="outline-text italic">Digital</span>
+              </div>
+              <div class="h-line"><span>Experience</span></div>
+            </h1>
+            <p class="hero-desc reveal">
+              <span id="typed-output"></span>
+            </p>
+            <div class="hero-footer reveal">
+              <a href="#about" class="explore-btn"
+                >Eksplorasi Profil <span class="arrow">↓</span></a
+              >
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ABOUT -->
+      <section id="about" class="about-section">
+        <div class="container about-grid">
+          <div class="about-image reveal">
+            <div class="image-inner">
+              <img
+                src="assets/swim.jpeg"
+                alt="Profile Photo"
+                class="profile-photo"
+              />
+              <div class="photo-overlay"></div>
+            </div>
+            <div class="image-deco"></div>
+            <div class="float-badge badge-top-right">
+              <span class="fb-icon">🤖</span>
+              <div class="fb-info">
+                <span class="fb-role">AI Supervisor</span>
+                <span class="fb-sub">Prompt Engineering</span>
+              </div>
+            </div>
+            <div class="float-badge badge-bottom-left">
+              <span class="fb-icon">⚡</span>
+              <div class="fb-info">
+                <span class="fb-role">Frontend Dev</span>
+                <span class="fb-sub">HTML · CSS · JS</span>
+              </div>
+            </div>
+            <div class="float-badge badge-bottom-right">
+              <span class="fb-icon">🎨</span>
+              <div class="fb-info">
+                <span class="fb-role">UI Designer</span>
+                <span class="fb-sub">Creative Thinker</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="about-content reveal">
+            <span class="section-index">01</span>
+            <h2 class="syne-font glitch-title">
+              <span class="glitch-word" data-word="The">The</span>
+              <span class="glitch-word" data-word="Architect">Architect</span>
+              <br />
+              <span class="glitch-word" data-word="Behind">Behind</span>
+              <span class="glitch-word" data-word="The">The</span>
+              <span class="glitch-word blue-text" data-word="Code">Code</span>
+            </h2>
+            <p class="about-text">
+              Halo! Saya seorang <strong>Creative Developer</strong> yang
+              berdedikasi menggabungkan fungsionalitas teknis dengan estetika
+              visual yang memukau. Setiap pixel punya tujuan.
+            </p>
+            <p class="about-text">
+              Fokus saya membangun produk digital yang tidak hanya berkinerja
+              tinggi, tetapi juga memberikan pengalaman emosional yang tak
+              terlupakan bagi pengguna.
+            </p>
+            <div class="role-cards">
+              <div class="role-card">
+                <span class="role-icon">🤖</span>
+                <div>
+                  <h5>AI Supervisor</h5>
+                  <p>
+                    Mengelola & mengarahkan workflow berbasis AI untuk hasil
+                    yang optimal.
+                  </p>
+                </div>
+              </div>
+              <div class="role-card">
+                <span class="role-icon">💻</span>
+                <div>
+                  <h5>Frontend Developer</h5>
+                  <p>
+                    Membangun antarmuka web yang responsif, cepat, dan estetis.
+                  </p>
+                </div>
+              </div>
+              <div class="role-card">
+                <span class="role-icon">🎨</span>
+                <div>
+                  <h5>UI Designer</h5>
+                  <p>
+                    Merancang visual yang bersih, modern, dan user-friendly.
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div class="experience-stats">
+              <div class="stat-item">
+                <h3 data-target="4">0+</h3>
+                <p>Years Exp</p>
+              </div>
+              <div class="stat-item">
+                <h3 data-target="10">0+</h3>
+                <p>Projects</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- SKILLS -->
+      <section id="skills" class="skills-section">
+        <div class="container">
+          <div class="section-header reveal">
+            <span class="section-index">02</span>
+            <h2 class="syne-font">Tech Stack</h2>
+          </div>
+        </div>
+
+        <div class="marquee-wrapper">
+          <div class="marquee-track track-forward">
+            <div class="marquee-item">
+              <span class="skill-icon">🌐</span><span>HTML & CSS</span>
+            </div>
+            <div class="marquee-item">
+              <span class="skill-icon">⚡</span><span>JavaScript</span>
+            </div>
+            <div class="marquee-item">
+              <span class="skill-icon">🐘</span><span>PHP</span>
+            </div>
+            <div class="marquee-item">
+              <span class="skill-icon">🐙</span><span>Git & GitHub</span>
+            </div>
+            <div class="marquee-item accent">
+              <span class="skill-icon">✦</span><span>Creative Developer</span>
+            </div>
+            <div class="marquee-item">
+              <span class="skill-icon">🌐</span><span>HTML & CSS</span>
+            </div>
+            <div class="marquee-item">
+              <span class="skill-icon">⚡</span><span>JavaScript</span>
+            </div>
+            <div class="marquee-item">
+              <span class="skill-icon">🐘</span><span>PHP</span>
+            </div>
+            <div class="marquee-item">
+              <span class="skill-icon">🐙</span><span>Git & GitHub</span>
+            </div>
+            <div class="marquee-item accent">
+              <span class="skill-icon">✦</span><span>Creative Developer</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="marquee-wrapper">
+          <div class="marquee-track track-reverse">
+            <div class="marquee-item dark">
+              <span class="skill-icon">🎨</span><span>UI Design</span>
+            </div>
+            <div class="marquee-item">
+              <span class="skill-icon">📱</span><span>Responsive Layout</span>
+            </div>
+            <div class="marquee-item dark">
+              <span class="skill-icon">🔧</span><span>Clean Code</span>
+            </div>
+            <div class="marquee-item">
+              <span class="skill-icon">🚀</span><span>Performance</span>
+            </div>
+            <div class="marquee-item accent">
+              <span class="skill-icon">✦</span><span>Open to Work</span>
+            </div>
+            <div class="marquee-item dark">
+              <span class="skill-icon">🎨</span><span>UI Design</span>
+            </div>
+            <div class="marquee-item">
+              <span class="skill-icon">📱</span><span>Responsive Layout</span>
+            </div>
+            <div class="marquee-item dark">
+              <span class="skill-icon">🔧</span><span>Clean Code</span>
+            </div>
+            <div class="marquee-item">
+              <span class="skill-icon">🚀</span><span>Performance</span>
+            </div>
+            <div class="marquee-item accent">
+              <span class="skill-icon">✦</span><span>Open to Work</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="container">
+          <div class="skill-cards reveal">
+            <div class="skill-card">
+              <div class="skill-card-icon">🌐</div>
+              <h4>HTML & CSS</h4>
+              <p>
+                Semantic markup, modern layouts dengan Flexbox & Grid, animasi
+                CSS.
+              </p>
+              <div class="skill-level">
+                <div class="skill-bar" style="--w: 95%"></div>
+              </div>
+              <span class="skill-pct">Expert</span>
+            </div>
+            <div class="skill-card">
+              <div class="skill-card-icon">⚡</div>
+              <h4>JavaScript</h4>
+              <p>
+                DOM manipulation, async/await, ES6+, dan interactive web
+                experiences.
+              </p>
+              <div class="skill-level">
+                <div class="skill-bar" style="--w: 80%"></div>
+              </div>
+              <span class="skill-pct">Advanced</span>
+            </div>
+            <div class="skill-card">
+              <div class="skill-card-icon">🐘</div>
+              <h4>PHP</h4>
+              <p>
+                Backend scripting, form handling, dan integrasi database MySQL.
+              </p>
+              <div class="skill-level">
+                <div class="skill-bar" style="--w: 70%"></div>
+              </div>
+              <span class="skill-pct">Intermediate</span>
+            </div>
+            <div class="skill-card">
+              <div class="skill-card-icon">🐙</div>
+              <h4>Git & GitHub</h4>
+              <p>
+                Version control, branching, pull request, dan deployment via
+                Pages.
+              </p>
+              <div class="skill-level">
+                <div class="skill-bar" style="--w: 75%"></div>
+              </div>
+              <span class="skill-pct">Advanced</span>
+            </div>
+          </div>
+
+          <!-- RADAR CHART -->
+          <div class="radar-section reveal">
+            <div class="radar-label-col">
+              <span class="section-index">02<small>.5</small></span>
+              <h3 class="syne-font">
+                Skill <span class="blue-text">Radar</span>
+              </h3>
+              <p class="radar-desc">
+                Visualisasi kemampuan teknis dalam satu pandang.
+              </p>
+              <div class="radar-legend">
+                <div class="legend-item">
+                  <span class="legend-dot"></span>Proficiency Level
+                </div>
+              </div>
+            </div>
+            <div class="radar-canvas-wrap">
+              <canvas id="skillRadar"></canvas>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- PROJECTS -->
+      <section id="work" class="project-section">
+        <div class="container">
+          <div class="section-header reveal">
+            <span class="section-index">03</span>
+            <h2 class="syne-font">Selected Works</h2>
+          </div>
+          <div class="project-grid">
+            <a
+              href="https://far7code.github.io/Jadwal-Solat/"
+              target="_blank"
+              class="p-item large reveal"
+            >
+              <div class="p-card">
+                <div class="p-img-box color-1">
+                  <div
+                    class="p-preview-wrap"
+                    data-src="https://far7code.github.io/Jadwal-Solat/"
+                  >
+                    <!-- iframe injected on hover -->
+                  </div>
+                  <div class="p-preview-overlay"></div>
+                  <div class="p-hover-cta">View Project ↗</div>
+                </div>
+                <div class="p-meta">
+                  <span class="p-tag">Prayer Time Website</span>
+                  <h3>Jadwal Solat</h3>
+                  <p>
+                    Aplikasi penentu waktu ibadah real-time berbasis lokasi
+                    secara akurat.
+                  </p>
+                </div>
+              </div>
+            </a>
+
+            <a
+              href="https://far7code.github.io/katalog-mobil/"
+              target="_blank"
+              class="p-item reveal"
+            >
+              <div class="p-card">
+                <div class="p-img-box color-2">
+                  <div
+                    class="p-preview-wrap"
+                    data-src="https://far7code.github.io/katalog-mobil/"
+                  >
+                    <!-- iframe injected on hover -->
+                  </div>
+                  <div class="p-preview-overlay"></div>
+                  <div class="p-hover-cta">View Project ↗</div>
+                </div>
+                <div class="p-meta">
+                  <span class="p-tag">Catalog Website</span>
+                  <h3>Katalog Mobil</h3>
+                  <p>
+                    Eksplorasi desain katalog otomotif mewah yang interaktif.
+                  </p>
+                </div>
+              </div>
+            </a>
+
+            <a
+              href="https://far7code.github.io/Masjid-Al-Qalam1/"
+              target="_blank"
+              class="p-item reveal"
+            >
+              <div class="p-card">
+                <div class="p-img-box color-3">
+                  <div
+                    class="p-preview-wrap"
+                    data-src="https://far7code.github.io/Masjid-Al-Qalam1/"
+                  >
+                    <!-- iframe injected on hover -->
+                  </div>
+                  <div class="p-preview-overlay"></div>
+                  <div class="p-hover-cta">View Project ↗</div>
+                </div>
+                <div class="p-meta">
+                  <span class="p-tag">Mosque Website</span>
+                  <h3>Masjid Al-Qalam</h3>
+                  <p>Sistem informasi digital komunitas Masjid Al-Qalam.</p>
+                </div>
+              </div>
+            </a>
+
+            <a href="#" class="p-item large reveal">
+              <div class="p-card">
+                <div class="p-img-box color-4">
+                  <div class="p-preview-wrap p-preview-placeholder">
+                    <div class="placeholder-icon">🚧</div>
+                    <span>Coming Soon</span>
+                  </div>
+                  <div class="p-preview-overlay"></div>
+                </div>
+                <div class="p-meta">
+                  <span class="p-tag">Next Project</span>
+                  <h3>In Progress</h3>
+                  <p>Proyek baru sedang dalam pengerjaan. Stay tuned!</p>
+                </div>
+              </div>
+            </a>
+          </div>
+        </div>
+      </section>
+
+      <!-- CONTACT -->
+      <section id="contact" class="contact-section">
+        <div class="container">
+          <div class="contact-card reveal">
+            <h2 class="syne-font">
+              Siap Membangun <br /><span class="blue-text">Masa Depan?</span>
+            </h2>
+            <div class="magnetic-area">
+              <div class="magnetic-area-inner">
+                <a
+                  href="mailto:muhammadfadhil1019@gmail.com"
+                  class="magnetic-btn"
+                >
+                  <div class="circle-text-rotate">
+                    <svg viewBox="0 0 100 100">
+                      <path
+                        id="circlePath"
+                        d="M 50,50 m -37,0 a 37,37 0 1,1 74,0 a 37,37 0 1,1 -74,0"
+                        fill="none"
+                      />
+                      <text fill="currentColor">
+                        <textPath xlink:href="#circlePath">
+                          SAY HELLO • SAY HELLO •
+                        </textPath>
+                      </text>
+                    </svg>
+                  </div>
+                </a>
+                <div class="btn-icon" id="btn-icon">
+                  <div class="btn-eyes">
+                    <div class="btn-eye">
+                      <div class="btn-pupil" id="pupil-left"></div>
+                    </div>
+                    <div class="btn-eye">
+                      <div class="btn-pupil" id="pupil-right"></div>
+                    </div>
+                  </div>
+                  <div class="btn-icon-label">HI !</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- FOOTER -->
+      <footer class="footer">
+        <div class="container footer-inner">
+          <div class="footer-left reveal">
+            <p>&copy; 2026 Crafted by <span>Muhamad Fadil</span></p>
+          </div>
+          <div class="footer-right reveal">
+            <div class="social-tags">
+              <a
+                href="https://www.instagram.com/soft.pdil/"
+                target="_blank"
+                class="social-tag"
+                ><span class="tag-text">Instagram</span>
+                <div class="tag-bg"></div
+              ></a>
+              <a
+                href="https://www.linkedin.com/in/muhamad-fadil-444ba8394/"
+                target="_blank"
+                class="social-tag"
+                ><span class="tag-text">LinkedIn</span>
+                <div class="tag-bg"></div
+              ></a>
+              <a
+                href="https://github.com/FaR7COde"
+                target="_blank"
+                class="social-tag"
+                ><span class="tag-text">GitHub</span>
+                <div class="tag-bg"></div
+              ></a>
+            </div>
+          </div>
+        </div>
+      </footer>
+    </main>
+    <!-- WHATSAPP FLOATING WIDGET -->
+    <div class="wa-widget" id="wa-widget">
+      <div class="wa-bubble" id="wa-bubble">
+        <div class="wa-avatar">
+          <span
+            ><img src="assets/Invasion Rabbit.jpg" alt="pfp" class="wa-pfp"
+          /></span>
+          <div class="wa-online-dot"></div>
+        </div>
+        <div class="wa-info">
+          <div class="wa-name">Muhamad Fadil</div>
+          <div class="wa-status">
+            <span class="wa-dot"></span>Online sekarang
+          </div>
+        </div>
+        <button class="wa-close" id="wa-close">✕</button>
+        <div class="wa-message-area">
+          <div class="wa-chat-msg">
+            Halo! 👋 Mau diskusi proyek atau hire me? Yuk ngobrol langsung!
+          </div>
+        </div>
+        <a
+          href="https://wa.me/6281210333463?text=Halo%20Fadil%2C%20saya%20tertarik%20untuk%20diskusi%20proyek%20bersama%20kamu!"
+          target="_blank"
+          class="wa-start-btn ripple-btn"
+        >
+          💬 Mulai Chat
+        </a>
+      </div>
+      <button class="wa-fab ripple-btn" id="wa-fab" aria-label="Open WhatsApp">
+        <svg viewBox="0 0 24 24" fill="white" width="26" height="26">
+          <path
+            d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"
+          />
+          <path
+            d="M12 0C5.373 0 0 5.373 0 12c0 2.122.557 4.112 1.528 5.832L.057 23.985l6.322-1.65A11.945 11.945 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.8 9.8 0 01-5.031-1.382l-.36-.214-3.735.976.998-3.631-.235-.374A9.777 9.777 0 012.182 12C2.182 6.577 6.577 2.182 12 2.182S21.818 6.577 21.818 12 17.423 21.818 12 21.818z"
+          />
+        </svg>
+        <div class="wa-notif">1</div>
+      </button>
+    </div>
+
+    <script src="script.js"></script>
+  </body>
+</html>
