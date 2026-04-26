@@ -48,51 +48,60 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  // CUSTOM CURSOR
+  // CUSTOM CURSOR — desktop only
   const dot = document.querySelector(".cursor-dot");
   const ring = document.querySelector(".cursor-ring");
   let mouseX = 0,
     mouseY = 0;
   let ringX = 0,
     ringY = 0;
+  const isTouchDevice = window.matchMedia(
+    "(hover: none) and (pointer: coarse)",
+  ).matches;
 
-  window.addEventListener("mousemove", (e) => {
-    mouseX = e.clientX;
-    mouseY = e.clientY;
-    dot.style.left = mouseX + "px";
-    dot.style.top = mouseY + "px";
-  });
-
-  function animateRing() {
-    ringX += (mouseX - ringX) * 0.12;
-    ringY += (mouseY - ringY) * 0.12;
-    ring.style.left = ringX + "px";
-    ring.style.top = ringY + "px";
-    requestAnimationFrame(animateRing);
-  }
-  animateRing();
-
-  document
-    .querySelectorAll(
-      "a, button, .social-tag, .marquee-item, .role-card, .skill-card",
-    )
-    .forEach((el) => {
-      el.addEventListener("mouseenter", () =>
-        document.body.classList.add("cursor-hover"),
-      );
-      el.addEventListener("mouseleave", () =>
-        document.body.classList.remove("cursor-hover"),
-      );
+  if (!isTouchDevice && dot && ring) {
+    window.addEventListener("mousemove", (e) => {
+      mouseX = e.clientX;
+      mouseY = e.clientY;
+      dot.style.left = mouseX + "px";
+      dot.style.top = mouseY + "px";
     });
 
-  document.addEventListener("mouseleave", () => {
-    dot.style.opacity = "0";
-    ring.style.opacity = "0";
-  });
-  document.addEventListener("mouseenter", () => {
-    dot.style.opacity = "1";
-    ring.style.opacity = "1";
-  });
+    function animateRing() {
+      ringX += (mouseX - ringX) * 0.12;
+      ringY += (mouseY - ringY) * 0.12;
+      ring.style.left = ringX + "px";
+      ring.style.top = ringY + "px";
+      requestAnimationFrame(animateRing);
+    }
+    animateRing();
+
+    document
+      .querySelectorAll(
+        "a, button, .social-tag, .marquee-item, .role-card, .skill-card",
+      )
+      .forEach((el) => {
+        el.addEventListener("mouseenter", () =>
+          document.body.classList.add("cursor-hover"),
+        );
+        el.addEventListener("mouseleave", () =>
+          document.body.classList.remove("cursor-hover"),
+        );
+      });
+
+    document.addEventListener("mouseleave", () => {
+      dot.style.opacity = "0";
+      ring.style.opacity = "0";
+    });
+    document.addEventListener("mouseenter", () => {
+      dot.style.opacity = "1";
+      ring.style.opacity = "1";
+    });
+  } else {
+    // Hide cursor elements on touch
+    if (dot) dot.style.display = "none";
+    if (ring) ring.style.display = "none";
+  }
 
   // REVEAL ON SCROLL
   const revealObserver = new IntersectionObserver(
@@ -179,9 +188,9 @@ document.addEventListener("DOMContentLoaded", () => {
     .querySelectorAll(".skill-card")
     .forEach((c) => skillObserver.observe(c));
 
-  // MAGNETIC BUTTON
+  // MAGNETIC BUTTON — desktop only
   const magBtn = document.querySelector(".magnetic-btn");
-  if (window.innerWidth > 768 && magBtn) {
+  if (!isTouchDevice && window.innerWidth > 768 && magBtn) {
     window.addEventListener("mousemove", (e) => {
       if (magBtn.dataset.frozen) return;
       const rect = magBtn.getBoundingClientRect();
@@ -195,23 +204,25 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  // PARALLAX ORBS
+  // PARALLAX ORBS — desktop only
   const orb1 = document.querySelector(".orb-1");
   const orb2 = document.querySelector(".orb-2");
   let ticking = false;
-  window.addEventListener("scroll", () => {
-    if (!ticking) {
-      requestAnimationFrame(() => {
-        const s = window.scrollY;
-        if (orb1)
-          orb1.style.transform = `translate(${s * 0.04}px, ${s * 0.03}px)`;
-        if (orb2)
-          orb2.style.transform = `translate(${-s * 0.02}px, ${s * 0.035}px)`;
-        ticking = false;
-      });
-      ticking = true;
-    }
-  });
+  if (!isTouchDevice) {
+    window.addEventListener("scroll", () => {
+      if (!ticking) {
+        requestAnimationFrame(() => {
+          const s = window.scrollY;
+          if (orb1)
+            orb1.style.transform = `translate(${s * 0.04}px, ${s * 0.03}px)`;
+          if (orb2)
+            orb2.style.transform = `translate(${-s * 0.02}px, ${s * 0.035}px)`;
+          ticking = false;
+        });
+        ticking = true;
+      }
+    });
+  }
 
   // PARTICLE NETWORK BACKGROUND
   const canvas = document.getElementById("particle-network");
@@ -543,7 +554,80 @@ document.addEventListener("DOMContentLoaded", () => {
     .querySelectorAll(".ripple-btn, .magnetic-btn, .explore-btn, .nav-btn")
     .forEach(addRipple);
 
-  // ========== SMOOTH SCROLL MAGNETIC ON ALL NAV LINKS ==========
+  // ========== HAMBURGER MENU (MOBILE) ==========
+  const hamburger = document.getElementById("hamburger");
+  const navLinks = document.getElementById("nav-links");
+
+  window.closeMenu = function () {
+    hamburger?.classList.remove("open");
+    navLinks?.classList.remove("mobile-open");
+    document.body.style.overflow = "";
+  };
+
+  if (hamburger && navLinks) {
+    hamburger.addEventListener("click", () => {
+      hamburger.classList.toggle("open");
+      navLinks.classList.toggle("mobile-open");
+      document.body.style.overflow = navLinks.classList.contains("mobile-open")
+        ? "hidden"
+        : "";
+    });
+  }
+
+  // ========== TOUCH: IFRAME INJECT ON TAP (MOBILE) ==========
+  if (isTouchDevice) {
+    document.querySelectorAll(".p-preview-wrap[data-src]").forEach((wrap) => {
+      let loaded = false;
+      // On touch, load iframe immediately when card is visible
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((e) => {
+            if (e.isIntersecting && !loaded) {
+              loaded = true;
+              const iframe = document.createElement("iframe");
+              iframe.src = wrap.dataset.src;
+              iframe.className = "p-preview-frame";
+              iframe.tabIndex = -1;
+              wrap.appendChild(iframe);
+              observer.unobserve(e.target);
+            }
+          });
+        },
+        { threshold: 0.3 },
+      );
+      observer.observe(wrap.closest(".p-card"));
+    });
+  }
+
+  // ========== TOUCH: EYES FOLLOW TOUCH POSITION ==========
+  if (isTouchDevice) {
+    window.addEventListener(
+      "touchmove",
+      (e) => {
+        const touch = e.touches[0];
+        mouseX = touch.clientX;
+        mouseY = touch.clientY;
+        if (pupilLeft && pupilRight) {
+          const eyes = document.querySelectorAll(".btn-eye");
+          if (eyes[0]) moveEye(pupilLeft, eyes[0]);
+          if (eyes[1]) moveEye(pupilRight, eyes[1]);
+        }
+      },
+      { passive: true },
+    );
+  }
+
+  // ========== DISABLE MAGNETIC + TILT ON TOUCH ==========
+  if (isTouchDevice) {
+    // Disable 3D tilt on project cards
+    document.querySelectorAll(".p-card").forEach((card) => {
+      card.style.transform = "none";
+    });
+    // Disable magnetic nav
+    document.querySelectorAll(".nav-item").forEach((link) => {
+      link.style.transform = "none";
+    });
+  }
   document.querySelectorAll(".nav-item").forEach((link) => {
     link.addEventListener("mousemove", function (e) {
       const rect = this.getBoundingClientRect();
