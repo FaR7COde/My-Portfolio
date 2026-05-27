@@ -2,595 +2,1188 @@
 <html lang="id">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Website Portfolio | Muhamad Fadil</title>
+    <meta
+      name="viewport"
+      content="width=device-width,initial-scale=1.0,viewport-fit=cover"
+    />
+    <meta name="theme-color" content="#050507" />
+    <title>Muhamad Fadil — Creative Developer</title>
     <meta
       name="description"
-      content="Muhamad Fadil — Creative Developer, AI Supervisor & UI Designer. Membangun produk digital yang estetis, fungsional, dan berkesan."
+      content="Muhamad Fadil — Creative Developer, AI Supervisor & UI Designer berbasis di Indonesia. Spesialis HTML, CSS, JavaScript, UI Design & Prompt Engineering."
     />
     <meta
       name="keywords"
-      content="Muhamad Fadil, Frontend Developer, UI Designer, AI Supervisor, Portfolio, Web Developer Indonesia"
+      content="Muhamad Fadil, Creative Developer, Frontend Developer, UI Designer, AI Supervisor, Prompt Engineer, Web Developer Indonesia"
     />
-    <meta
-      property="og:title"
-      content="Portfolio | Muhamad Fadil — Creative Developer"
-    />
-    <meta
-      property="og:description"
-      content="Turning ideas into beautiful, functional digital experiences."
-    />
+    <meta name="author" content="Muhamad Fadil" />
+    <meta name="robots" content="index, follow" />
+    <link rel="canonical" href="https://far7code.github.io/" />
+
+    <!-- Open Graph (WhatsApp, Facebook, LinkedIn preview) -->
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://far7code.github.io/" />
+    <meta property="og:title" content="Muhamad Fadil — Creative Developer" />
+    <meta
+      property="og:description"
+      content="Creative Developer, AI Supervisor & UI Designer. Membangun pengalaman digital yang memukau dari konsep hingga launch."
+    />
+    <meta
+      property="og:image"
+      content="https://far7code.github.io/assets/emam.jpg"
+    />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:locale" content="id_ID" />
+    <meta property="og:site_name" content="Muhamad Fadil Portfolio" />
+
+    <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="Portfolio | Muhamad Fadil" />
-    <meta name="theme-color" content="#007aff" />
+    <meta name="twitter:title" content="Muhamad Fadil — Creative Developer" />
+    <meta
+      name="twitter:description"
+      content="Creative Developer, AI Supervisor & UI Designer. Membangun pengalaman digital yang memukau."
+    />
+    <meta
+      name="twitter:image"
+      content="https://far7code.github.io/assets/emam.jpg"
+    />
+
+    <!-- Favicon (emoji fallback — ganti dengan file .ico jika ada) -->
     <link
-      href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;800&family=Syne:wght@400;700;800&display=swap"
+      rel="icon"
+      href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%23050507'/><text y='72' x='50' text-anchor='middle' font-size='60' font-family='monospace' fill='%2338bdf8'>F</text></svg>"
+    />
+    <link rel="apple-touch-icon" href="assets/emam.jpg" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Bebas+Neue&family=DM+Sans:wght@300;400;500;700&display=swap"
       rel="stylesheet"
     />
     <script src="https://cdn.jsdelivr.net/npm/typed.js@2.1.0/dist/typed.umd.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
-    <!-- CUSTOM CURSOR -->
-    <div class="cursor-dot"></div>
-    <div class="cursor-ring"></div>
+    <div id="cursor"></div>
+    <div id="cursor-trail"></div>
+    <canvas id="globeCanvas" width="400" height="400"></canvas>
 
     <!-- PRELOADER -->
-    <div class="preloader" id="preloader">
-      <div class="preloader-inner">
-        <div class="load-text-wrap">
-          <span id="shuffle-text">INITIATING</span>
+    <div id="preloader">
+      <div class="pre-bottom">
+        <div class="pre-title">Initializing Network</div>
+        <div class="pre-bar-wrap"><div class="pre-bar" id="preBar"></div></div>
+        <div class="pre-info">
+          <span class="pre-count" id="preCount">000</span>
+          <span class="pre-status" id="preStatus">CONNECTING...</span>
         </div>
-        <div class="load-bar-container">
-          <div class="load-bar" id="load-bar"></div>
-        </div>
-        <div class="load-counter"><span id="load-pc">00</span>%</div>
       </div>
     </div>
 
-    <!-- BACKGROUND -->
-    <div class="bg-canvas">
-      <canvas id="particle-network" class="particle-network"></canvas>
-      <div class="floating-shapes">
-        <div class="shape shape-1"></div>
-        <div class="shape shape-2"></div>
-        <div class="shape shape-3"></div>
-        <div class="shape shape-4"></div>
-      </div>
-      <div class="glow-orb orb-1"></div>
-      <div class="glow-orb orb-2"></div>
-      <div class="noise-layer"></div>
-    </div>
+    <canvas id="bgCanvas"></canvas>
+    <div class="noise"></div>
 
     <!-- NAV -->
-    <nav class="nav-bar">
-      <div class="nav-container container">
-        <div class="nav-brand">PORT<span>FOLIO</span></div>
-        <div class="nav-links" id="nav-links">
-          <a href="#home" class="nav-item" onclick="closeMenu()">Home</a>
-          <a href="#about" class="nav-item" onclick="closeMenu()">About</a>
-          <a href="#skills" class="nav-item" onclick="closeMenu()">Skills</a>
-          <a href="#work" class="nav-item" onclick="closeMenu()">Projects</a>
-          <button
-            class="theme-toggle"
-            id="theme-toggle"
-            aria-label="Toggle dark mode"
-          >
-            <span class="theme-icon sun">☀️</span>
-            <span class="theme-icon moon">🌙</span>
-            <div class="toggle-track"></div>
-          </button>
-          <a href="#contact" class="nav-item nav-btn" onclick="closeMenu()"
-            >Hire Me</a
-          >
-        </div>
-        <button class="hamburger" id="hamburger" aria-label="Toggle menu">
-          <span></span>
-          <span></span>
-          <span></span>
-        </button>
+    <nav id="navbar">
+      <div class="nav-logo">MU<em>FA</em>DIL</div>
+      <div class="nav-links" id="navLinks">
+        <a href="#home">Home</a>
+        <a href="#about">About</a>
+        <a href="#skills">Skills</a>
+        <a href="#projects">Projects</a>
+        <a href="#services">Services</a>
+        <a href="#contact" class="nav-cta">Hire Me</a>
       </div>
+      <button class="hamburger" id="hamburger" aria-label="menu">
+        <span></span><span></span><span></span>
+      </button>
     </nav>
 
-    <main>
-      <!-- HERO -->
-      <section id="home" class="hero">
-        <div class="container">
-          <div class="hero-content">
-            <div class="hero-badge reveal">
-              <span>Available for Freelance</span>
-            </div>
-            <h1 class="hero-main-title">
-              <div class="h-line"><span>Creative</span></div>
-              <div class="h-line">
-                <span class="outline-text italic">Digital</span>
-              </div>
-              <div class="h-line"><span>Experience</span></div>
-            </h1>
-            <p class="hero-desc reveal">
-              <span id="typed-output"></span>
-            </p>
-            <div class="hero-footer reveal">
-              <a href="#about" class="explore-btn"
-                >Eksplorasi Profil <span class="arrow">↓</span></a
+    <!-- HERO -->
+    <section id="home" class="hero">
+      <div class="hero-inner">
+        <div class="hero-content">
+          <div class="hero-tag">Available for Freelance</div>
+          <h1 class="hero-name">
+            MUHAMAD<br /><span class="outline">FADIL</span
+            ><span class="accent">.</span>
+          </h1>
+          <p class="hero-sub"><span id="typed-out"></span></p>
+          <div class="hero-actions">
+            <a href="#projects" class="btn-primary">
+              View Work
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
               >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  d="M13.5 6H5.25A2.25 2.25 0 003 8.25v10.5A2.25 2.25 0 005.25 21h10.5A2.25 2.25 0 0018 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25"
+                />
+              </svg>
+            </a>
+            <a href="#contact" class="btn-ghost">
+              Let's talk
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  d="M17.25 8.25L21 12m0 0l-3.75 3.75M21 12H3"
+                />
+              </svg>
+            </a>
+            <a
+              href="assets/CV-Muhamad-Fadil.pdf"
+              download
+              class="btn-cv"
+              title="Download CV"
+            >
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.8"
+                width="15"
+                height="15"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5M16.5 12L12 16.5m0 0L7.5 12m4.5 4.5V3"
+                />
+              </svg>
+              CV
+            </a>
+          </div>
+        </div>
+        <div class="hero-globe-anchor" id="heroGlobeAnchor">
+          <div class="hga-ring hga-ring1"></div>
+          <div class="hga-ring hga-ring2"></div>
+          <div class="hga-label hga-label-top">
+            <span class="hga-blink"></span><span>LIVE NETWORK</span>
+          </div>
+          <div class="hga-label hga-label-bot">
+            <span>NODES</span><span class="hga-val">16</span>
+          </div>
+          <div class="globe-hint">DRAG · TAP NODE · CLICK</div>
+        </div>
+      </div>
+      <div class="hero-scroll">
+        <span class="scroll-label">SCROLL</span>
+        <div class="scroll-line"></div>
+      </div>
+    </section>
+
+    <!-- MARQUEE -->
+    <div class="marquee-wrap">
+      <div class="marquee-track">
+        <div class="marquee-item">
+          <span>Frontend Developer</span><span class="dot"></span>
+        </div>
+        <div class="marquee-item">
+          <span>UI Designer</span><span class="dot"></span>
+        </div>
+        <div class="marquee-item">
+          <span>AI Supervisor</span><span class="dot"></span>
+        </div>
+        <div class="marquee-item">
+          <span>Creative Thinker</span><span class="dot"></span>
+        </div>
+        <div class="marquee-item">
+          <span>Web Developer</span><span class="dot"></span>
+        </div>
+        <div class="marquee-item">
+          <span>Prompt Engineer</span><span class="dot"></span>
+        </div>
+        <div class="marquee-item">
+          <span>Frontend Developer</span><span class="dot"></span>
+        </div>
+        <div class="marquee-item">
+          <span>UI Designer</span><span class="dot"></span>
+        </div>
+        <div class="marquee-item">
+          <span>AI Supervisor</span><span class="dot"></span>
+        </div>
+        <div class="marquee-item">
+          <span>Creative Thinker</span><span class="dot"></span>
+        </div>
+        <div class="marquee-item">
+          <span>Web Developer</span><span class="dot"></span>
+        </div>
+        <div class="marquee-item">
+          <span>Prompt Engineer</span><span class="dot"></span>
+        </div>
+      </div>
+    </div>
+
+    <!-- ABOUT -->
+    <section id="about">
+      <div class="about">
+        <div class="about-img-wrap reveal">
+          <div class="profile-frame">
+            <div class="profile-corner pc-tl"></div>
+            <div class="profile-corner pc-tr"></div>
+            <div class="profile-corner pc-bl"></div>
+            <div class="profile-corner pc-br"></div>
+            <img src="assets/emam.jpg" alt="Muhamad Fadil" />
+          </div>
+          <div class="about-badges">
+            <div class="ab-badge">
+              <svg
+                class="ab-icon"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.5"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  d="M8.25 3v1.5M4.5 8.25H3m18 0h-1.5M4.5 12H3m18 0h-1.5m-15 3.75H3m18 0h-1.5M8.25 19.5V21M12 3v1.5m0 15V21m3.75-18v1.5m0 15V21m-9-1.5h10.5a2.25 2.25 0 002.25-2.25V6.75a2.25 2.25 0 00-2.25-2.25H6.75A2.25 2.25 0 004.5 6.75v10.5a2.25 2.25 0 002.25 2.25zm.75-12h9v9h-9v-9z"
+                />
+              </svg>
+              <div>
+                <div class="ab-text">AI Supervisor</div>
+                <div class="ab-sub">Prompt Engineering</div>
+              </div>
+            </div>
+            <div class="ab-badge">
+              <svg
+                class="ab-icon"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.5"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  d="M17.25 6.75L22.5 12l-5.25 5.25m-10.5 0L1.5 12l5.25-5.25m7.5-3l-4.5 16.5"
+                />
+              </svg>
+              <div>
+                <div class="ab-text">Frontend Dev</div>
+                <div class="ab-sub">HTML · CSS · JS</div>
+              </div>
+            </div>
+            <div class="ab-badge">
+              <svg
+                class="ab-icon"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.5"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  d="M9.53 16.122a3 3 0 00-5.78 1.128 2.25 2.25 0 01-2.4 2.245 4.5 4.5 0 008.4-2.245c0-.399-.078-.78-.22-1.128zm0 0a15.998 15.998 0 003.388-1.62m-5.043-.025a15.994 15.994 0 011.622-3.395m3.42 3.42a15.995 15.995 0 004.764-4.648l3.876-5.814a1.151 1.151 0 00-1.597-1.597L14.146 6.32a15.996 15.996 0 00-4.649 4.763m3.42 3.42a6.776 6.776 0 00-3.42-3.42"
+                />
+              </svg>
+              <div>
+                <div class="ab-text">UI Designer</div>
+                <div class="ab-sub">Creative Thinker</div>
+              </div>
             </div>
           </div>
         </div>
-      </section>
-
-      <!-- ABOUT -->
-      <section id="about" class="about-section">
-        <div class="container about-grid">
-          <div class="about-image reveal">
-            <div class="image-inner">
-              <p>JANGAN LUPA GANTI!</p>
-              <img
-                src="assets/emam.jpg"
-                alt="Profile Photo"
-                class="profile-photo"
-              />
-              <div class="photo-overlay"></div>
+        <div class="about-content reveal reveal-d1">
+          <div class="section-label">01 — About Me</div>
+          <h2 class="section-heading">
+            The Architect<br />Behind The <span class="hl">Code</span>
+          </h2>
+          <p class="about-text">
+            Halo! Saya seorang
+            <strong style="color: #fff">Creative Developer</strong> yang
+            berdedikasi menggabungkan fungsionalitas teknis dengan estetika
+            visual yang memukau. Setiap pixel punya tujuan.
+          </p>
+          <p class="about-text">
+            Fokus saya membangun produk digital yang tidak hanya berkinerja
+            tinggi, tetapi juga memberikan pengalaman emosional yang tak
+            terlupakan bagi pengguna.
+          </p>
+          <div class="about-stats">
+            <div>
+              <div class="stat-num">2<em>+</em></div>
+              <div class="stat-label">YEARS EXP</div>
             </div>
-            <div class="image-deco"></div>
-            <div class="float-badge badge-top-right">
-              <span class="fb-icon">🤖</span>
-              <div class="fb-info">
-                <span class="fb-role">AI Supervisor</span>
-                <span class="fb-sub">Prompt Engineering</span>
-              </div>
+            <div>
+              <div class="stat-num">10<em>+</em></div>
+              <div class="stat-label">PROJECTS</div>
             </div>
-            <div class="float-badge badge-bottom-left">
-              <span class="fb-icon">⚡</span>
-              <div class="fb-info">
-                <span class="fb-role">Frontend Dev</span>
-                <span class="fb-sub">HTML · CSS · JS</span>
-              </div>
-            </div>
-            <div class="float-badge badge-bottom-right">
-              <span class="fb-icon">🎨</span>
-              <div class="fb-info">
-                <span class="fb-role">UI Designer</span>
-                <span class="fb-sub">Creative Thinker</span>
-              </div>
+            <div>
+              <div class="stat-num">5<em>&#9733;</em></div>
+              <div class="stat-label">CLIENT RATING</div>
             </div>
           </div>
+        </div>
+      </div>
+    </section>
 
-          <div class="about-content reveal">
-            <span class="section-index">01</span>
-            <h2 class="syne-font glitch-title">
-              <span class="glitch-word" data-word="The">The</span>
-              <span class="glitch-word" data-word="Architect">Architect</span>
-              <br />
-              <span class="glitch-word" data-word="Behind">Behind</span>
-              <span class="glitch-word" data-word="The">The</span>
-              <span class="glitch-word blue-text" data-word="Code">Code</span>
+    <!-- SKILLS -->
+    <section id="skills">
+      <div class="skills-section">
+        <!-- Header -->
+        <div class="skills-header">
+          <div>
+            <div class="section-label reveal">02 — Skills &amp; Tools</div>
+            <h2 class="section-heading reveal reveal-d1">
+              My <span class="hl">Arsenal</span>
             </h2>
-            <p class="about-text">
-              Halo! Saya seorang <strong>Creative Developer</strong> yang
-              berdedikasi menggabungkan fungsionalitas teknis dengan estetika
-              visual yang memukau. Setiap pixel punya tujuan.
-            </p>
-            <p class="about-text">
-              Fokus saya membangun produk digital yang tidak hanya berkinerja
-              tinggi, tetapi juga memberikan pengalaman emosional yang tak
-              terlupakan bagi pengguna.
-            </p>
-            <div class="role-cards">
-              <div class="role-card">
-                <span class="role-icon">🤖</span>
-                <div>
-                  <h5>AI Supervisor</h5>
-                  <p>
-                    Mengelola & mengarahkan workflow berbasis AI untuk hasil
-                    yang optimal.
-                  </p>
-                </div>
-              </div>
-              <div class="role-card">
-                <span class="role-icon">💻</span>
-                <div>
-                  <h5>Frontend Developer</h5>
-                  <p>
-                    Membangun antarmuka web yang responsif, cepat, dan estetis.
-                  </p>
-                </div>
-              </div>
-              <div class="role-card">
-                <span class="role-icon">🎨</span>
-                <div>
-                  <h5>UI Designer</h5>
-                  <p>
-                    Merancang visual yang bersih, modern, dan user-friendly.
-                  </p>
-                </div>
-              </div>
-            </div>
-            <div class="experience-stats">
-              <div class="stat-item">
-                <h3 data-target="4">0+</h3>
-                <p>Years Exp</p>
-              </div>
-              <div class="stat-item">
-                <h3 data-target="10">0+</h3>
-                <p>Projects</p>
-              </div>
-            </div>
           </div>
-        </div>
-      </section>
-
-      <!-- SKILLS -->
-      <section id="skills" class="skills-section">
-        <div class="container">
-          <div class="section-header reveal">
-            <span class="section-index">02</span>
-            <h2 class="syne-font">Tech Stack</h2>
+          <div class="skill-tabs reveal">
+            <button class="skill-tab active" data-tab="tech">
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.8"
+                width="14"
+                height="14"
+              >
+                <polyline points="16 18 22 12 16 6" />
+                <polyline points="8 6 2 12 8 18" />
+              </svg>
+              Tech
+            </button>
+            <button class="skill-tab" data-tab="design">
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.8"
+                width="14"
+                height="14"
+              >
+                <circle cx="13.5" cy="6.5" r=".5" fill="currentColor" />
+                <circle cx="17.5" cy="10.5" r=".5" fill="currentColor" />
+                <circle cx="8.5" cy="7.5" r=".5" fill="currentColor" />
+                <circle cx="6.5" cy="12.5" r=".5" fill="currentColor" />
+                <path
+                  d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10c.926 0 1.648-.746 1.648-1.688 0-.437-.18-.835-.437-1.125-.29-.289-.438-.652-.438-1.125a1.64 1.64 0 011.668-1.668h1.996c3.051 0 5.555-2.503 5.555-5.554C21.965 6.012 17.461 2 12 2z"
+                />
+              </svg>
+              Design
+            </button>
+            <button class="skill-tab" data-tab="tools">
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.8"
+                width="14"
+                height="14"
+              >
+                <path
+                  d="M14.7 6.3a1 1 0 000 1.4l1.6 1.6a1 1 0 001.4 0l3.77-3.77a6 6 0 01-7.94 7.94l-6.91 6.91a2.12 2.12 0 01-3-3l6.91-6.91a6 6 0 017.94-7.94l-3.76 3.76z"
+                />
+              </svg>
+              Tools
+            </button>
           </div>
         </div>
 
-        <div class="marquee-wrapper">
-          <div class="marquee-track track-forward">
-            <div class="marquee-item">
-              <span class="skill-icon">🌐</span><span>HTML & CSS</span>
-            </div>
-            <div class="marquee-item">
-              <span class="skill-icon">⚡</span><span>JavaScript</span>
-            </div>
-            <div class="marquee-item">
-              <span class="skill-icon">🐘</span><span>PHP</span>
-            </div>
-            <div class="marquee-item">
-              <span class="skill-icon">🐙</span><span>Git & GitHub</span>
-            </div>
-            <div class="marquee-item accent">
-              <span class="skill-icon">✦</span><span>Creative Developer</span>
-            </div>
-            <div class="marquee-item">
-              <span class="skill-icon">🌐</span><span>HTML & CSS</span>
-            </div>
-            <div class="marquee-item">
-              <span class="skill-icon">⚡</span><span>JavaScript</span>
-            </div>
-            <div class="marquee-item">
-              <span class="skill-icon">🐘</span><span>PHP</span>
-            </div>
-            <div class="marquee-item">
-              <span class="skill-icon">🐙</span><span>Git & GitHub</span>
-            </div>
-            <div class="marquee-item accent">
-              <span class="skill-icon">✦</span><span>Creative Developer</span>
-            </div>
-          </div>
+        <!-- Body: canvas bg + bento grid -->
+        <div class="skills-body" id="skillsBody">
+          <canvas class="skills-canvas" id="skillsCanvas"></canvas>
+          <div class="skills-grid" id="skillsGrid"></div>
         </div>
 
-        <div class="marquee-wrapper">
-          <div class="marquee-track track-reverse">
-            <div class="marquee-item dark">
-              <span class="skill-icon">🎨</span><span>UI Design</span>
-            </div>
-            <div class="marquee-item">
-              <span class="skill-icon">📱</span><span>Responsive Layout</span>
-            </div>
-            <div class="marquee-item dark">
-              <span class="skill-icon">🔧</span><span>Clean Code</span>
-            </div>
-            <div class="marquee-item">
-              <span class="skill-icon">🚀</span><span>Performance</span>
-            </div>
-            <div class="marquee-item accent">
-              <span class="skill-icon">✦</span><span>Open to Work</span>
-            </div>
-            <div class="marquee-item dark">
-              <span class="skill-icon">🎨</span><span>UI Design</span>
-            </div>
-            <div class="marquee-item">
-              <span class="skill-icon">📱</span><span>Responsive Layout</span>
-            </div>
-            <div class="marquee-item dark">
-              <span class="skill-icon">🔧</span><span>Clean Code</span>
-            </div>
-            <div class="marquee-item">
-              <span class="skill-icon">🚀</span><span>Performance</span>
-            </div>
-            <div class="marquee-item accent">
-              <span class="skill-icon">✦</span><span>Open to Work</span>
-            </div>
+        <!-- Stats bar -->
+        <div class="skills-statsbar reveal">
+          <div class="ssb-item">
+            <span class="ssb-num" data-target="6">0</span>
+            <span class="ssb-label">Skill Categories</span>
+          </div>
+          <div class="ssb-div"></div>
+          <div class="ssb-item">
+            <span class="ssb-num" data-target="92">0</span
+            ><span class="ssb-unit">%</span>
+            <span class="ssb-label">Top Proficiency</span>
+          </div>
+          <div class="ssb-div"></div>
+          <div class="ssb-item">
+            <span class="ssb-num" data-target="2">0</span
+            ><span class="ssb-unit">+</span>
+            <span class="ssb-label">Years Learning</span>
+          </div>
+          <div class="ssb-div"></div>
+          <div class="ssb-item">
+            <span class="ssb-num" data-target="10">0</span
+            ><span class="ssb-unit">+</span>
+            <span class="ssb-label">Projects Built</span>
           </div>
         </div>
+      </div>
+    </section>
 
-        <div class="container">
-          <div class="skill-cards reveal">
-            <div class="skill-card">
-              <div class="skill-card-icon">🌐</div>
-              <h4>HTML & CSS</h4>
-              <p>
-                Semantic markup, modern layouts dengan Flexbox & Grid, animasi
-                CSS.
-              </p>
-              <div class="skill-level">
-                <div class="skill-bar" style="--w: 95%"></div>
-              </div>
-              <span class="skill-pct">Expert</span>
-            </div>
-            <div class="skill-card">
-              <div class="skill-card-icon">⚡</div>
-              <h4>JavaScript</h4>
-              <p>
-                DOM manipulation, async/await, ES6+, dan interactive web
-                experiences.
-              </p>
-              <div class="skill-level">
-                <div class="skill-bar" style="--w: 80%"></div>
-              </div>
-              <span class="skill-pct">Advanced</span>
-            </div>
-            <div class="skill-card">
-              <div class="skill-card-icon">🐘</div>
-              <h4>PHP</h4>
-              <p>
-                Backend scripting, form handling, dan integrasi database MySQL.
-              </p>
-              <div class="skill-level">
-                <div class="skill-bar" style="--w: 70%"></div>
-              </div>
-              <span class="skill-pct">Intermediate</span>
-            </div>
-            <div class="skill-card">
-              <div class="skill-card-icon">🐙</div>
-              <h4>Git & GitHub</h4>
-              <p>
-                Version control, branching, pull request, dan deployment via
-                Pages.
-              </p>
-              <div class="skill-level">
-                <div class="skill-bar" style="--w: 75%"></div>
-              </div>
-              <span class="skill-pct">Advanced</span>
-            </div>
-          </div>
-
-          <!-- RADAR CHART -->
-          <div class="radar-section reveal">
-            <div class="radar-label-col">
-              <span class="section-index">02<small>.5</small></span>
-              <h3 class="syne-font">
-                Skill <span class="blue-text">Radar</span>
-              </h3>
-              <p class="radar-desc">
-                Visualisasi kemampuan teknis dalam satu pandang.
-              </p>
-              <div class="radar-legend">
-                <div class="legend-item">
-                  <span class="legend-dot"></span>Proficiency Level
-                </div>
-              </div>
-            </div>
-            <div class="radar-canvas-wrap">
-              <canvas id="skillRadar"></canvas>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <!-- PROJECTS -->
-      <section id="work" class="project-section">
-        <div class="container">
-          <div class="section-header reveal">
-            <span class="section-index">03</span>
-            <h2 class="syne-font">Selected Works</h2>
-          </div>
-          <div class="project-grid">
-            <a
-              href="https://far7code.github.io/Jadwal-Solat/"
-              target="_blank"
-              class="p-item large reveal"
-            >
-              <div class="p-card">
-                <div class="p-img-box color-1">
-                  <div
-                    class="p-preview-wrap"
-                    data-src="https://far7code.github.io/Jadwal-Solat/"
+    <!-- PROJECTS -->
+    <section id="projects">
+      <div class="projects-section">
+        <div class="section-label reveal">03 — Projects</div>
+        <h2 class="section-heading reveal reveal-d1">
+          Featured <span class="hl">Work</span>
+        </h2>
+        <div class="projects-grid">
+          <a
+            href="https://far7code.github.io/Jadwal-Solat/"
+            target="_blank"
+            class="project-card featured reveal"
+            data-url="https://far7code.github.io/Jadwal-Solat/"
+          >
+            <div class="p-browser">
+              <div class="browser-bar">
+                <div class="b-dot b-dot-r"></div>
+                <div class="b-dot b-dot-y"></div>
+                <div class="b-dot b-dot-g"></div>
+                <div class="b-url">
+                  <svg
+                    class="b-lock"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
                   >
-                    <!-- iframe injected on hover -->
-                  </div>
-                  <div class="p-preview-overlay"></div>
-                  <div class="p-hover-cta">View Project ↗</div>
-                </div>
-                <div class="p-meta">
-                  <span class="p-tag">Prayer Time Website</span>
-                  <h3>Jadwal Solat</h3>
-                  <p>
-                    Aplikasi penentu waktu ibadah real-time berbasis lokasi
-                    secara akurat.
-                  </p>
+                    <rect width="18" height="11" x="3" y="11" rx="2" ry="2" />
+                    <path d="M7 11V7a5 5 0 0 1 10 0v4" />
+                  </svg>
+                  far7code.github.io
                 </div>
               </div>
-            </a>
-
-            <a
-              href="https://far7code.github.io/katalog-mobil/"
-              target="_blank"
-              class="p-item reveal"
-            >
-              <div class="p-card">
-                <div class="p-img-box color-2">
+              <div class="p-iframe-wrap">
+                <div class="p-skeleton">
+                  <div class="sk-line" style="height: 18px; width: 60%"></div>
                   <div
-                    class="p-preview-wrap"
-                    data-src="https://far7code.github.io/katalog-mobil/"
-                  >
-                    <!-- iframe injected on hover -->
-                  </div>
-                  <div class="p-preview-overlay"></div>
-                  <div class="p-hover-cta">View Project ↗</div>
-                </div>
-                <div class="p-meta">
-                  <span class="p-tag">Catalog Website</span>
-                  <h3>Katalog Mobil</h3>
-                  <p>
-                    Eksplorasi desain katalog otomotif mewah yang interaktif.
-                  </p>
-                </div>
-              </div>
-            </a>
-
-            <a
-              href="https://far7code.github.io/Masjid-Al-Qalam1/"
-              target="_blank"
-              class="p-item reveal"
-            >
-              <div class="p-card">
-                <div class="p-img-box color-3">
+                    class="sk-line"
+                    style="height: 12px; width: 90%; margin-top: 4px"
+                  ></div>
                   <div
-                    class="p-preview-wrap"
-                    data-src="https://far7code.github.io/Masjid-Al-Qalam1/"
+                    class="sk-line"
+                    style="height: 80px; width: 100%; margin-top: 8px"
+                  ></div>
+                  <div
+                    class="sk-line"
+                    style="height: 12px; width: 55%; margin-top: 8px"
+                  ></div>
+                </div>
+              </div>
+              <div class="p-hover-overlay">
+                <span class="p-hover-cta"
+                  >Visit Live Site<svg
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
                   >
-                    <!-- iframe injected on hover -->
-                  </div>
-                  <div class="p-preview-overlay"></div>
-                  <div class="p-hover-cta">View Project ↗</div>
-                </div>
-                <div class="p-meta">
-                  <span class="p-tag">Mosque Website</span>
-                  <h3>Masjid Al-Qalam</h3>
-                  <p>Sistem informasi digital komunitas Masjid Al-Qalam.</p>
-                </div>
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      d="M13.5 6H5.25A2.25 2.25 0 003 8.25v10.5A2.25 2.25 0 005.25 21h10.5A2.25 2.25 0 0018 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25"
+                    /></svg
+                ></span>
               </div>
-            </a>
-
-            <a href="#" class="p-item large reveal">
-              <div class="p-card">
-                <div class="p-img-box color-4">
-                  <div class="p-preview-wrap p-preview-placeholder">
-                    <div class="placeholder-icon">🚧</div>
-                    <span>Coming Soon</span>
-                  </div>
-                  <div class="p-preview-overlay"></div>
-                </div>
-                <div class="p-meta">
-                  <span class="p-tag">Next Project</span>
-                  <h3>In Progress</h3>
-                  <p>Proyek baru sedang dalam pengerjaan. Stay tuned!</p>
-                </div>
+            </div>
+            <div class="p-info">
+              <div class="p-tag">Prayer Time Website</div>
+              <div class="p-title">Jadwal Sholat</div>
+              <div class="p-desc">
+                Aplikasi penentu waktu ibadah real-time berbasis lokasi secara
+                akurat.
               </div>
-            </a>
-          </div>
-        </div>
-      </section>
-
-      <!-- CONTACT -->
-      <section id="contact" class="contact-section">
-        <div class="container">
-          <div class="contact-card reveal">
-            <h2 class="syne-font">
-              Siap Membangun <br /><span class="blue-text">Masa Depan?</span>
-            </h2>
-            <div class="magnetic-area">
-              <div class="magnetic-area-inner">
-                <a
-                  href="mailto:muhammadfadhil1019@gmail.com"
-                  class="magnetic-btn"
+              <div class="p-link">
+                View Project<svg
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
                 >
-                  <div class="circle-text-rotate">
-                    <svg viewBox="0 0 100 100">
-                      <path
-                        id="circlePath"
-                        d="M 50,50 m -37,0 a 37,37 0 1,1 74,0 a 37,37 0 1,1 -74,0"
-                        fill="none"
-                      />
-                      <text fill="currentColor">
-                        <textPath xlink:href="#circlePath">
-                          SAY HELLO • SAY HELLO •
-                        </textPath>
-                      </text>
-                    </svg>
-                  </div>
-                </a>
-                <div class="btn-icon" id="btn-icon">
-                  <div class="btn-eyes">
-                    <div class="btn-eye">
-                      <div class="btn-pupil" id="pupil-left"></div>
-                    </div>
-                    <div class="btn-eye">
-                      <div class="btn-pupil" id="pupil-right"></div>
-                    </div>
-                  </div>
-                  <div class="btn-icon-label">HI !</div>
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    d="M13.5 6H5.25A2.25 2.25 0 003 8.25v10.5A2.25 2.25 0 005.25 21h10.5A2.25 2.25 0 0018 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25"
+                  />
+                </svg>
+              </div>
+            </div>
+          </a>
+          <a
+            href="https://far7code.github.io/katalog-mobil/"
+            target="_blank"
+            class="project-card reveal reveal-d1"
+            data-url="https://far7code.github.io/katalog-mobil/"
+          >
+            <div class="p-browser">
+              <div class="browser-bar">
+                <div class="b-dot b-dot-r"></div>
+                <div class="b-dot b-dot-y"></div>
+                <div class="b-dot b-dot-g"></div>
+                <div class="b-url">
+                  <svg
+                    class="b-lock"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                  >
+                    <rect width="18" height="11" x="3" y="11" rx="2" ry="2" />
+                    <path d="M7 11V7a5 5 0 0 1 10 0v4" />
+                  </svg>
+                  far7code.github.io/katalog-mobil
                 </div>
+              </div>
+              <div class="p-iframe-wrap">
+                <div class="p-skeleton">
+                  <div class="sk-line" style="height: 14px; width: 50%"></div>
+                  <div
+                    class="sk-line"
+                    style="height: 60px; width: 100%; margin-top: 6px"
+                  ></div>
+                  <div
+                    class="sk-line"
+                    style="height: 12px; width: 70%; margin-top: 8px"
+                  ></div>
+                </div>
+              </div>
+              <div class="p-hover-overlay">
+                <span class="p-hover-cta"
+                  >Visit Live Site<svg
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      d="M13.5 6H5.25A2.25 2.25 0 003 8.25v10.5A2.25 2.25 0 005.25 21h10.5A2.25 2.25 0 0018 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25"
+                    /></svg
+                ></span>
+              </div>
+            </div>
+            <div class="p-info">
+              <div class="p-tag">Catalog Website</div>
+              <div class="p-title">Katalog Mobil</div>
+              <div class="p-desc">
+                Eksplorasi desain katalog otomotif mewah yang interaktif dan
+                informatif.
+              </div>
+              <div class="p-link">
+                View Project<svg
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    d="M13.5 6H5.25A2.25 2.25 0 003 8.25v10.5A2.25 2.25 0 005.25 21h10.5A2.25 2.25 0 0018 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25"
+                  />
+                </svg>
+              </div>
+            </div>
+          </a>
+          <a
+            href="https://far7code.github.io/Masjid-Al-Qalam1/"
+            target="_blank"
+            class="project-card reveal reveal-d2"
+            data-url="https://far7code.github.io/Masjid-Al-Qalam1/"
+          >
+            <div class="p-browser">
+              <div class="browser-bar">
+                <div class="b-dot b-dot-r"></div>
+                <div class="b-dot b-dot-y"></div>
+                <div class="b-dot b-dot-g"></div>
+                <div class="b-url">
+                  <svg
+                    class="b-lock"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                  >
+                    <rect width="18" height="11" x="3" y="11" rx="2" ry="2" />
+                    <path d="M7 11V7a5 5 0 0 1 10 0v4" />
+                  </svg>
+                  far7code.github.io/Masjid-Al-Qalam1
+                </div>
+              </div>
+              <div class="p-iframe-wrap">
+                <div class="p-skeleton">
+                  <div class="sk-line" style="height: 14px; width: 55%"></div>
+                  <div
+                    class="sk-line"
+                    style="height: 60px; width: 100%; margin-top: 6px"
+                  ></div>
+                  <div
+                    class="sk-line"
+                    style="height: 12px; width: 75%; margin-top: 8px"
+                  ></div>
+                </div>
+              </div>
+              <div class="p-hover-overlay">
+                <span class="p-hover-cta"
+                  >Visit Live Site<svg
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      d="M13.5 6H5.25A2.25 2.25 0 003 8.25v10.5A2.25 2.25 0 005.25 21h10.5A2.25 2.25 0 0018 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25"
+                    /></svg
+                ></span>
+              </div>
+            </div>
+            <div class="p-info">
+              <div class="p-tag">Mosque Website</div>
+              <div class="p-title">Masjid Al-Qalam</div>
+              <div class="p-desc">
+                Sistem informasi digital komunitas Masjid Al-Qalam yang modern
+                dan user-friendly.
+              </div>
+              <div class="p-link">
+                View Project<svg
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    d="M13.5 6H5.25A2.25 2.25 0 003 8.25v10.5A2.25 2.25 0 005.25 21h10.5A2.25 2.25 0 0018 18.75V10.5m-10.5 6L21 3m0 0h-5.25M21 3v5.25"
+                  />
+                </svg>
+              </div>
+            </div>
+          </a>
+          <div class="project-card reveal reveal-d3" style="cursor: default">
+            <div class="p-coming">
+              <svg
+                class="coming-icon"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.2"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z"
+                />
+              </svg>
+              <div class="coming-label">Coming Soon</div>
+            </div>
+            <div class="p-info">
+              <div class="p-tag">Next Project</div>
+              <div class="p-title">In Progress</div>
+              <div class="p-desc">
+                Proyek baru sedang dalam pengerjaan. Sesuatu yang luar biasa
+                akan segera hadir!
               </div>
             </div>
           </div>
         </div>
-      </section>
+      </div>
+    </section>
 
-      <!-- FOOTER -->
-      <footer class="footer">
-        <div class="container footer-inner">
-          <div class="footer-left reveal">
-            <p>&copy; 2026 Crafted by <span>Muhamad Fadil</span></p>
+    <!-- CONTACT -->
+    <section id="contact" class="contact-section">
+      <div class="contact-inner">
+        <span class="contact-tag reveal">// 05 — Contact</span>
+        <h2 class="contact-heading reveal reveal-d1">
+          Let's Build<br /><span class="hl">Together.</span>
+        </h2>
+        <p class="contact-desc reveal reveal-d2">
+          Punya ide atau proyek keren? Mari kita wujudkan bersama. Saya siap
+          membantu dari konsep hingga launch.
+        </p>
+
+        <div class="contact-body reveal reveal-d2">
+          <!-- LEFT: Info + Links -->
+          <div class="contact-left">
+            <div class="contact-links">
+              <a
+                href="mailto:muhammadfadhil1019@gmail.com"
+                class="contact-link"
+              >
+                <svg
+                  class="cl-icon"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="1.5"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    d="M21.75 6.75v10.5a2.25 2.25 0 01-2.25 2.25h-15a2.25 2.25 0 01-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25m19.5 0v.243a2.25 2.25 0 01-1.07 1.916l-7.5 4.615a2.25 2.25 0 01-2.36 0L3.32 8.91a2.25 2.25 0 01-1.07-1.916V6.75"
+                  />
+                </svg>
+                <span class="cl-text">muhammadfadhil1019@gmail.com</span>
+              </a>
+              <a
+                href="https://wa.me/6281210333463"
+                target="_blank"
+                class="contact-link"
+              >
+                <svg
+                  class="cl-icon"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="1.5"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    d="M7.5 8.25h9m-9 3H12m-9.75 1.51c0 1.6 1.123 2.994 2.707 3.227 1.129.166 2.27.293 3.423.379.35.026.67.21.865.501L12 21l2.755-4.133a1.14 1.14 0 01.865-.501 48.172 48.172 0 003.423-.379c1.584-.233 2.707-1.626 2.707-3.228V6.741c0-1.602-1.123-2.995-2.707-3.228A48.394 48.394 0 0012 3c-2.392 0-4.744.175-7.043.513C3.373 3.746 2.25 5.14 2.25 6.741v6.018z"
+                  />
+                </svg>
+                <span class="cl-text">WhatsApp</span>
+              </a>
+            </div>
+            <div class="contact-terminal">
+              <div class="ct-line">
+                <span class="ct-prompt">fadil@portfolio:~$</span>
+                <span class="ct-val">whoami</span>
+              </div>
+              <div class="ct-line">
+                <span style="color: rgba(255, 255, 255, 0.3)">&#8594;</span>
+                Creative Developer · AI Supervisor · UI Designer
+              </div>
+              <div class="ct-line">
+                <span class="ct-prompt">fadil@portfolio:~$</span>
+                <span class="ct-val">contact --hire</span>
+              </div>
+              <div class="ct-line">
+                <span style="color: rgba(255, 255, 255, 0.3)">&#8594;</span>
+                <span style="color: #38bdf8">&#10003;</span> Available for new
+                projects
+              </div>
+              <div class="ct-line">
+                <span class="ct-prompt">fadil@portfolio:~$</span>
+                <span class="ct-cursor"></span>
+              </div>
+            </div>
           </div>
-          <div class="footer-right reveal">
-            <div class="social-tags">
-              <a
-                href="https://www.instagram.com/soft.pdil/"
-                target="_blank"
-                class="social-tag"
-                ><span class="tag-text">Instagram</span>
-                <div class="tag-bg"></div
-              ></a>
-              <a
-                href="https://www.linkedin.com/in/muhamad-fadil-444ba8394/"
-                target="_blank"
-                class="social-tag"
-                ><span class="tag-text">LinkedIn</span>
-                <div class="tag-bg"></div
-              ></a>
-              <a
-                href="https://github.com/FaR7COde"
-                target="_blank"
-                class="social-tag"
-                ><span class="tag-text">GitHub</span>
-                <div class="tag-bg"></div
-              ></a>
+
+          <!-- RIGHT: Contact Form -->
+          <div class="contact-right">
+            <div class="cf-header">
+              <div class="cf-badge">
+                <span class="cf-badge-dot"></span>
+                <span>Send a Message</span>
+              </div>
+            </div>
+            <form
+              id="contactForm"
+              action="https://formspree.io/f/xeedlrdp"
+              method="POST"
+              novalidate
+            >
+              <div class="cf-row">
+                <div class="cf-group">
+                  <label class="cf-label" for="cf-name">Your Name</label>
+                  <div class="cf-input-wrap">
+                    <svg
+                      class="cf-input-icon"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="1.5"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z"
+                      />
+                    </svg>
+                    <input
+                      type="text"
+                      id="cf-name"
+                      name="name"
+                      class="cf-input"
+                      placeholder="John Doe"
+                      required
+                      autocomplete="name"
+                    />
+                  </div>
+                </div>
+                <div class="cf-group">
+                  <label class="cf-label" for="cf-email">Email Address</label>
+                  <div class="cf-input-wrap">
+                    <svg
+                      class="cf-input-icon"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="1.5"
+                    >
+                      <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        d="M21.75 6.75v10.5a2.25 2.25 0 01-2.25 2.25h-15a2.25 2.25 0 01-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25m19.5 0v.243a2.25 2.25 0 01-1.07 1.916l-7.5 4.615a2.25 2.25 0 01-2.36 0L3.32 8.91a2.25 2.25 0 01-1.07-1.916V6.75"
+                      />
+                    </svg>
+                    <input
+                      type="email"
+                      id="cf-email"
+                      name="email"
+                      class="cf-input"
+                      placeholder="hello@example.com"
+                      required
+                      autocomplete="email"
+                    />
+                  </div>
+                </div>
+              </div>
+              <div class="cf-group">
+                <label class="cf-label" for="cf-subject">Subject</label>
+                <div class="cf-input-wrap">
+                  <svg
+                    class="cf-input-icon"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="1.5"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      d="M7.5 8.25h9m-9 3H12m-9.75 1.51c0 1.6 1.123 2.994 2.707 3.227 1.129.166 2.27.293 3.423.379.35.026.67.21.865.501L12 21l2.755-4.133a1.14 1.14 0 01.865-.501 48.172 48.172 0 003.423-.379c1.584-.233 2.707-1.626 2.707-3.228V6.741c0-1.602-1.123-2.995-2.707-3.228A48.394 48.394 0 0012 3c-2.392 0-4.744.175-7.043.513C3.373 3.746 2.25 5.14 2.25 6.741v6.018z"
+                    />
+                  </svg>
+                  <input
+                    type="text"
+                    id="cf-subject"
+                    name="subject"
+                    class="cf-input"
+                    placeholder="Mau diskusi proyek / hire / kolaborasi..."
+                    required
+                  />
+                </div>
+              </div>
+              <div class="cf-group">
+                <label class="cf-label" for="cf-message">Message</label>
+                <div class="cf-input-wrap cf-textarea-wrap">
+                  <svg
+                    class="cf-input-icon cf-ta-icon"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="1.5"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0115.75 21H5.25A2.25 2.25 0 013 18.75V8.25A2.25 2.25 0 015.25 6H10"
+                    />
+                  </svg>
+                  <textarea
+                    id="cf-message"
+                    name="message"
+                    class="cf-input cf-textarea"
+                    placeholder="Ceritakan ide atau proyek kamu di sini..."
+                    required
+                    rows="4"
+                  ></textarea>
+                </div>
+              </div>
+              <button type="submit" class="cf-submit" id="cfSubmit">
+                <span class="cf-submit-txt">
+                  Send Message
+                  <svg
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      d="M6 12L3.269 3.126A59.768 59.768 0 0121.485 12 59.77 59.77 0 013.27 20.876L5.999 12zm0 0h7.5"
+                    />
+                  </svg>
+                </span>
+                <span class="cf-submit-loading" style="display: none">
+                  <span class="cf-spinner"></span> Sending...
+                </span>
+                <span class="cf-submit-done" style="display: none">
+                  <svg
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2.5"
+                    width="18"
+                    height="18"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      d="M4.5 12.75l6 6 9-13.5"
+                    />
+                  </svg>
+                  Message Sent!
+                </span>
+              </button>
+              <div class="cf-success" id="cfSuccess" style="display: none">
+                <svg
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="#38bdf8"
+                  stroke-width="2"
+                  width="22"
+                  height="22"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+                  />
+                </svg>
+                <span>Pesan berhasil dikirim! Saya akan segera membalas.</span>
+              </div>
+              <div class="cf-error" id="cfError" style="display: none">
+                <svg
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="#f87171"
+                  stroke-width="2"
+                  width="18"
+                  height="18"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    d="M12 9v3.75m9-.75a9 9 0 11-18 0 9 9 0 0118 0zm-9 3.75h.008v.008H12v-.008z"
+                  />
+                </svg>
+                <span>Gagal kirim. Coba lagi atau hubungi via WhatsApp.</span>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SERVICES -->
+    <section id="services">
+      <div class="services-section">
+        <div class="section-label reveal">04 — What I Offer</div>
+        <h2 class="section-heading reveal reveal-d1">
+          My <span class="hl">Services</span>
+        </h2>
+        <div class="services-grid">
+          <div class="srv-card reveal">
+            <div class="srv-num">01</div>
+            <div class="srv-icon-wrap">
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.5"
+                width="28"
+                height="28"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  d="M17.25 6.75L22.5 12l-5.25 5.25m-10.5 0L1.5 12l5.25-5.25m7.5-3l-4.5 16.5"
+                />
+              </svg>
+            </div>
+            <h3 class="srv-title">Frontend Development</h3>
+            <p class="srv-desc">
+              Website responsif & interaktif menggunakan HTML, CSS, dan
+              JavaScript murni. Performa tinggi, mobile-first, dan SEO-friendly.
+            </p>
+            <div class="srv-tags">
+              <span>HTML5</span><span>CSS3</span><span>JavaScript</span>
+            </div>
+          </div>
+          <div class="srv-card reveal reveal-d1">
+            <div class="srv-num">02</div>
+            <div class="srv-icon-wrap">
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.5"
+                width="28"
+                height="28"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  d="M9.53 16.122a3 3 0 00-5.78 1.128 2.25 2.25 0 01-2.4 2.245 4.5 4.5 0 008.4-2.245c0-.399-.078-.78-.22-1.128zm0 0a15.998 15.998 0 003.388-1.62m-5.043-.025a15.994 15.994 0 011.622-3.395m3.42 3.42a15.995 15.995 0 004.764-4.648l3.876-5.814a1.151 1.151 0 00-1.597-1.597L14.146 6.32a15.996 15.996 0 00-4.649 4.763m3.42 3.42a6.776 6.776 0 00-3.42-3.42"
+                />
+              </svg>
+            </div>
+            <h3 class="srv-title">UI/UX Design</h3>
+            <p class="srv-desc">
+              Desain antarmuka modern, estetis, dan intuitif. Dari wireframe
+              hingga prototype siap produksi dengan Figma.
+            </p>
+            <div class="srv-tags">
+              <span>Figma</span><span>UI Design</span><span>Prototyping</span>
+            </div>
+          </div>
+          <div class="srv-card reveal reveal-d2">
+            <div class="srv-num">03</div>
+            <div class="srv-icon-wrap">
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.5"
+                width="28"
+                height="28"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  d="M8.25 3v1.5M4.5 8.25H3m18 0h-1.5M4.5 12H3m18 0h-1.5m-15 3.75H3m18 0h-1.5M8.25 19.5V21M12 3v1.5m0 15V21m3.75-18v1.5m0 15V21m-9-1.5h10.5a2.25 2.25 0 002.25-2.25V6.75a2.25 2.25 0 00-2.25-2.25H6.75A2.25 2.25 0 004.5 6.75v10.5a2.25 2.25 0 002.25 2.25zm.75-12h9v9h-9v-9z"
+                />
+              </svg>
+            </div>
+            <h3 class="srv-title">AI Supervision & Prompting</h3>
+            <p class="srv-desc">
+              Optimasi workflow menggunakan AI tools. Prompt engineering untuk
+              konten, coding, dan otomasi tugas harian.
+            </p>
+            <div class="srv-tags">
+              <span>Prompt Eng.</span><span>AI Tools</span
+              ><span>Automation</span>
+            </div>
+          </div>
+          <div class="srv-card reveal reveal-d3">
+            <div class="srv-num">04</div>
+            <div class="srv-icon-wrap">
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.5"
+                width="28"
+                height="28"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  d="M12 21a9.004 9.004 0 008.716-6.747M12 21a9.004 9.004 0 01-8.716-6.747M12 21c2.485 0 4.5-4.03 4.5-9S14.485 3 12 3m0 18c-2.485 0-4.5-4.03-4.5-9S9.515 3 12 3m0 0a8.997 8.997 0 017.843 4.582M12 3a8.997 8.997 0 00-7.843 4.582m15.686 0A11.953 11.953 0 0112 10.5c-2.998 0-5.74-1.1-7.843-2.918m15.686 0A8.959 8.959 0 0121 12c0 .778-.099 1.533-.284 2.253m0 0A17.919 17.919 0 0112 16.5c-3.162 0-6.133-.815-8.716-2.247m0 0A9.015 9.015 0 013 12c0-1.605.42-3.113 1.157-4.418"
+                />
+              </svg>
+            </div>
+            <h3 class="srv-title">Web Deployment & Hosting</h3>
+            <p class="srv-desc">
+              Deploy website ke GitHub Pages atau hosting lainnya. Setup domain,
+              SSL, dan optimasi Core Web Vitals.
+            </p>
+            <div class="srv-tags">
+              <span>GitHub Pages</span><span>SEO</span><span>Performance</span>
             </div>
           </div>
         </div>
-      </footer>
-    </main>
-    <!-- WHATSAPP FLOATING WIDGET -->
-    <div class="wa-widget" id="wa-widget">
-      <div class="wa-bubble" id="wa-bubble">
-        <div class="wa-avatar">
-          <span
-            ><img src="assets/Invasion Rabbit.jpg" alt="pfp" class="wa-pfp"
-          /></span>
-          <div class="wa-online-dot"></div>
-        </div>
-        <div class="wa-info">
-          <div class="wa-name">Muhamad Fadil</div>
-          <div class="wa-status">
-            <span class="wa-dot"></span>Online sekarang
+      </div>
+    </section>
+
+    <!-- BACK TO TOP -->
+    <button id="backToTop" class="back-to-top" aria-label="Kembali ke atas">
+      <svg
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2.5"
+        width="18"
+        height="18"
+      >
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          d="M4.5 15.75l7.5-7.5 7.5 7.5"
+        />
+      </svg>
+    </button>
+
+    <!-- FOOTER -->
+    <footer>
+      <div class="footer-copy">
+        &#169; 2026 Crafted by <span>Muhamad Fadil</span> — All rights reserved
+      </div>
+      <div class="social-links">
+        <a
+          href="https://www.instagram.com/soft.pdil/"
+          target="_blank"
+          class="social-link"
+          >Instagram</a
+        >
+        <a
+          href="https://www.linkedin.com/in/muhamad-fadil-444ba8394/"
+          target="_blank"
+          class="social-link"
+          >LinkedIn</a
+        >
+        <a
+          href="https://github.com/FaR7COde"
+          target="_blank"
+          class="social-link"
+          >GitHub</a
+        >
+      </div>
+    </footer>
+
+    <!-- WA WIDGET -->
+    <div class="wa-widget" id="waWidget">
+      <div class="wa-bubble">
+        <div class="wa-header">
+          <div class="wa-avatar-wrap">
+            <img
+              src="assets/InvasionRabbit.jpg"
+              alt="Muhamad Fadil"
+              class="wa-avatar"
+            />
+            <div class="wa-online"></div>
           </div>
-        </div>
-        <button class="wa-close" id="wa-close">✕</button>
-        <div class="wa-message-area">
-          <div class="wa-chat-msg">
-            Halo! 👋 Mau diskusi proyek atau hire me? Yuk ngobrol langsung!
+          <div>
+            <div class="wa-name">Muhamad Fadil</div>
+            <div class="wa-status">&#9679; Online sekarang</div>
           </div>
+          <button class="wa-close-btn" id="waClose">&#10005;</button>
+        </div>
+        <div class="wa-message">
+          Halo! Mau diskusi proyek atau hire me? Yuk ngobrol langsung!
         </div>
         <a
-          href="https://wa.me/6281210333463?text=Halo%20Fadil%2C%20saya%20tertarik%20untuk%20diskusi%20proyek%20bersama%20kamu!"
+          href="https://wa.me/6281210333463?text=Halo%20Fadil%2C%20saya%20tertarik%20untuk%20diskusi%20proyek!"
           target="_blank"
-          class="wa-start-btn ripple-btn"
+          class="wa-cta-btn"
         >
-          💬 Mulai Chat
+          <svg viewBox="0 0 24 24" fill="currentColor">
+            <path
+              d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413z"
+            />
+            <path
+              d="M12 0C5.373 0 0 5.373 0 12c0 2.122.557 4.112 1.528 5.832L.057 23.985l6.322-1.65A11.945 11.945 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.8 9.8 0 01-5.031-1.382l-.36-.214-3.735.976.998-3.631-.235-.374A9.777 9.777 0 012.182 12C2.182 6.577 6.577 2.182 12 2.182S21.818 6.577 21.818 12 17.423 21.818 12 21.818z"
+            />
+          </svg>
+          Mulai Chat
         </a>
       </div>
-      <button class="wa-fab ripple-btn" id="wa-fab" aria-label="Open WhatsApp">
-        <svg viewBox="0 0 24 24" fill="white" width="26" height="26">
+      <button class="wa-fab" id="waFab" aria-label="WhatsApp">
+        <svg viewBox="0 0 24 24" fill="white">
           <path
             d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"
           />
