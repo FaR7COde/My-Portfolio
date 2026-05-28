@@ -156,5 +156,5 @@ namun harap tidak mendistribusikan ulang secara langsung tanpa izin.
 ---
 
 <div align="center">
-  <sub>Crafted with ❤️ by <strong>Muhamad Fadil</strong> — Jakarta, Indonesia</sub>
+  <sub>Crafted with ❤️ by <strong>Muhamad Fadil</strong> — Bekasi, Indonesia</sub>
 </div>
