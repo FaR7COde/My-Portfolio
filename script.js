@@ -1087,22 +1087,66 @@ function initTyped() {
 }
 
 // ─── NAV ───
-const navEl = document.getElementById("navbar");
-window.addEventListener("scroll", () =>
-  navEl.classList.toggle("scrolled", window.scrollY > 50),
-);
-const ham = document.getElementById("hamburger"),
-  navLinks = document.getElementById("navLinks");
-ham.addEventListener("click", () => {
-  ham.classList.toggle("open");
-  navLinks.classList.toggle("open");
-});
-navLinks.querySelectorAll("a").forEach((a) =>
-  a.addEventListener("click", () => {
-    ham.classList.remove("open");
-    navLinks.classList.remove("open");
-  }),
-);
+const navbar = document.getElementById("navbar");
+const hamburger = document.getElementById("hamburger");
+const navLinks = document.getElementById("navLinks");
+const navOverlay = document.getElementById("navOverlay");
+
+// 1. Scroll effect
+if (navbar) {
+  let ticking = false;
+  window.addEventListener("scroll", () => {
+    if (!ticking) {
+      requestAnimationFrame(() => {
+        navbar.classList.toggle("scrolled", window.scrollY > 50);
+        ticking = false;
+      });
+      ticking = true;
+    }
+  });
+}
+
+// 2. Hamburger menu
+function openNav() {
+  hamburger.classList.add("open");
+  navLinks.classList.add("open");
+  if (navOverlay) navOverlay.classList.add("active");
+  hamburger.setAttribute("aria-expanded", "true");
+  document.body.style.overflow = "hidden";
+}
+function closeNav() {
+  hamburger.classList.remove("open");
+  navLinks.classList.remove("open");
+  if (navOverlay) navOverlay.classList.remove("active");
+  hamburger.setAttribute("aria-expanded", "false");
+  document.body.style.overflow = "";
+}
+
+if (hamburger && navLinks) {
+  hamburger.addEventListener("click", () => {
+    if (navLinks.classList.contains("open")) closeNav();
+    else openNav();
+  });
+
+  // Close when a nav link is clicked
+  navLinks.querySelectorAll("a").forEach((link) => {
+    link.addEventListener("click", closeNav);
+  });
+
+  // Close when overlay (backdrop) is clicked
+  if (navOverlay) navOverlay.addEventListener("click", closeNav);
+
+  // Close on Escape key
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape" && navLinks.classList.contains("open")) closeNav();
+  });
+
+  // Close if viewport resizes above mobile threshold
+  window.addEventListener("resize", () => {
+    if (window.innerWidth > 900 && navLinks.classList.contains("open"))
+      closeNav();
+  });
+}
 
 // ─── SKILLS — Bento Grid ───
 const SKILLS = {
@@ -1550,26 +1594,27 @@ waC.addEventListener("click", () => waW.classList.remove("open"));
 // ─── ACTIVE NAV ON SCROLL ───
 (function () {
   const sections = document.querySelectorAll("section[id]");
-  const navLinks = document.querySelectorAll('.nav-links a[href^="#"]');
-  if (!sections.length || !navLinks.length) return;
+  const navAnchors = document.querySelectorAll('.nav-links a[href^="#"]');
+  if (!sections.length || !navAnchors.length) return;
 
-  const observer = new IntersectionObserver(
-    function (entries) {
-      entries.forEach(function (entry) {
-        if (!entry.isIntersecting) return;
-        const id = entry.target.getAttribute("id");
-        navLinks.forEach(function (link) {
-          link.classList.remove("nav-active");
-          if (link.getAttribute("href") === "#" + id) {
-            link.classList.add("nav-active");
-          }
-        });
-      });
-    },
-    { threshold: 0.35, rootMargin: "-10% 0px -55% 0px" },
-  );
+  function setActive() {
+    const navH = navbar ? navbar.offsetHeight : 64;
+    const triggerY = navH + window.innerHeight * 0.15;
+    let current = "";
 
-  sections.forEach(function (section) {
-    observer.observe(section);
-  });
+    sections.forEach(function (sec) {
+      const top = sec.getBoundingClientRect().top;
+      if (top <= triggerY) current = sec.getAttribute("id");
+    });
+
+    navAnchors.forEach(function (link) {
+      link.classList.remove("nav-active");
+      if (link.getAttribute("href") === "#" + current) {
+        link.classList.add("nav-active");
+      }
+    });
+  }
+
+  window.addEventListener("scroll", setActive, { passive: true });
+  setActive();
 })();
