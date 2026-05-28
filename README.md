@@ -109,7 +109,7 @@ git push origin main
 | Project | Deskripsi | Link |
 |---------|-----------|------|
 | **Jadwal Sholat** | Aplikasi jadwal sholat digital | [Demo](https://far7code.github.io/Jadwal-Solat/) |
-| **Katalog Mobil** | Website katalog kendaraan | — |
+| **Katalog Mobil** | Website katalog kendaraan | [Demo](https://far7code.github.io/katalog-mobil/) |
 | **Masjid Al-Qalam** | Sistem informasi digital masjid modern | [Demo](https://far7code.github.io/Masjid-Al-Qalam1/) |
 | **In Progress** | Proyek baru sedang pengerjaan | — |
 
@@ -137,8 +137,8 @@ git push origin main
 
 | Platform | Link |
 |----------|------|
-| 🌐 Website | [far7code.github.io](https://far7code.github.io/) |
-| 💼 GitHub | [@far7code](https://github.com/far7code) |
+| 🌐 Website | [far7code.github.io](https://far7code.github.io/My-Portfolio/) |
+| 💼 GitHub | [@far7code](https://github.com/FaR7COde) |
 | 📧 Email | *(tersedia di form kontak website)* |
 | 💬 WhatsApp | *(tersedia via widget di website)* |
 
