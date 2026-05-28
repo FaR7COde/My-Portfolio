@@ -4,8 +4,6 @@
 > Membangun pengalaman digital yang memukau — dari konsep hingga launch.
 
 [![Live Demo](https://img.shields.io/badge/Live%20Demo-far7code.github.io-38bdf8?style=for-the-badge&logo=github)](https://far7code.github.io/)
-[![Status](https://img.shields.io/badge/Status-Open%20to%20Work-22c55e?style=for-the-badge)]()
-[![Location](https://img.shields.io/badge/Location-Jakarta%2C%20Remote-6366f1?style=for-the-badge)]()
 
 ---
 
