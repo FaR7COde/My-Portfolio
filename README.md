@@ -9,12 +9,6 @@
 
 ---
 
-## 📸 Preview
-
-![Portfolio Preview](assets/emam.jpg)
-
----
-
 ## ✨ Fitur
 
 - **Preloader animasi** — loading screen dengan progress bar & status network
