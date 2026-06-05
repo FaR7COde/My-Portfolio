@@ -62,8 +62,8 @@ portfolio/
 ├── style.css           # Seluruh styling & animasi
 ├── script.js           # Logic JS: globe, nav, typed, reveal, dll
 ├── assets/
-│   ├── emam.jpg        # Foto profil
-│   ├── logo.jpg        # Favicon
+│   ├── main.jpeg        # Foto profil
+│   ├── whatsapp.jpeg        # Favicon
 │   └── CV-Muhamad-Fadil.pdf  # CV untuk download
 └── README.md
 ```
